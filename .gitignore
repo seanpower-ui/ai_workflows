@@ -1,0 +1,23 @@
+# dependencies
+node_modules
+.pnp
+.pnp.*
+
+# build
+.next
+out
+build
+dist
+
+# env
+.env
+.env*.local
+
+# local npm credentials (use .npmrc.example + env var)
+.npmrc
+
+# debug / misc
+npm-debug.log*
+.DS_Store
+.Turbo
+*.tsbuildinfo

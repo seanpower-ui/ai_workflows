@@ -1,0 +1,4 @@
+@jllt:registry=https://artifacts.jll.com/artifactory/api/npm/csp-npm-release-local/
+//artifacts.jll.com/artifactory/api/npm/csp-npm-release-local/:_authToken=${JFROG_NPM_TOKEN}
+always-auth=true
+legacy-peer-deps=true
