@@ -4,8 +4,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "next dev -p 3001",
-    "dev:devtools": "NEXT_PUBLIC_ALIZE_DEVTOOLS=true next dev -p 3001",
+    "dev": "next dev -p 3002 --webpack",
+    "dev:turbo": "next dev -p 3002 --turbopack",
+    "dev:devtools": "NEXT_PUBLIC_ALIZE_DEVTOOLS=true next dev -p 3002 --webpack",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
