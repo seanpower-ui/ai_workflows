@@ -13,9 +13,6 @@ dist
 .env
 .env*.local
 
-# local npm credentials (use .npmrc.example + env var)
-.npmrc
-
 # debug / misc
 npm-debug.log*
 .DS_Store
