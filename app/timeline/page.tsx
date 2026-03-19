@@ -26,7 +26,7 @@ export default function TimelinePage() {
     return () => window.removeEventListener("resize", update);
   }, []);
 
-  const scrollRafRef = useRef<number | undefined>();
+  const scrollRafRef = useRef<number | undefined>(undefined);
   const scrollBehaviorRestoreRef = useRef<string | null>(null);
   const pendingScrollToSection2Ref = useRef(false);
 
