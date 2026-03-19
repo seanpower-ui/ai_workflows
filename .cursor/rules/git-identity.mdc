@@ -1,0 +1,10 @@
+---
+description: Git author email for this repository
+alwaysApply: true
+---
+
+# Git identity (UXArea)
+
+For this project, use **`sean_power@live.co.uk`** as the Git author email for commits, amend operations, and any instructions involving `user.email`.
+
+Local repo config should keep `git config user.email` set to that value.
