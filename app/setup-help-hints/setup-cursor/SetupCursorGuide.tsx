@@ -446,6 +446,7 @@ export function SetupCursorGuide() {
           "Select if you need steps to clone your projects repo or start from scratch in a private sand box",
         disableNext: true,
         slideOverflowVisible: true,
+        fullCarouselViewport: true,
         content: (
           <div className="h-full min-h-0 w-full min-w-0">
             <CursorSetupPathTiles />

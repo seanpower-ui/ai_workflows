@@ -39,6 +39,14 @@ export function useGuideCursorPath() {
   return useContext(GuideCursorPathContext);
 }
 
+/** Default carousel image viewport; step-level `fullCarouselViewport` overrides to this size. */
+const CAROUSEL_VIEWPORT_FULL = { w: 1080, h: 608 } as const;
+/** 25% smaller linear dimensions than full (area ~44% of full). */
+const CAROUSEL_VIEWPORT_REDUCED = {
+  w: Math.round(CAROUSEL_VIEWPORT_FULL.w * 0.75),
+  h: Math.round(CAROUSEL_VIEWPORT_FULL.h * 0.75),
+} as const;
+
 export type GuideStep = {
   title: string;
   description: string | ReactNode;
@@ -47,6 +55,11 @@ export type GuideStep = {
   disableNext?: boolean;
   /** When true, slide wrappers use overflow visible so hover lift/shadows are not clipped */
   slideOverflowVisible?: boolean;
+  /**
+   * When true, slide content uses the full 1080×608 frame (e.g. path tiles).
+   * Otherwise content is shown in a 25%-smaller inset centered in that same frame (no layout jump).
+   */
+  fullCarouselViewport?: boolean;
 };
 
 export type GuideSwitcherItem = {
@@ -226,12 +239,12 @@ export function GuidePageContent({
                     : "overflow-hidden",
                 )}
                 style={{
-                  width: 1080,
-                  height: 608,
-                  minWidth: 1080,
-                  minHeight: 608,
-                  maxWidth: 1080,
-                  maxHeight: 608,
+                  width: CAROUSEL_VIEWPORT_FULL.w,
+                  height: CAROUSEL_VIEWPORT_FULL.h,
+                  minWidth: CAROUSEL_VIEWPORT_FULL.w,
+                  minHeight: CAROUSEL_VIEWPORT_FULL.h,
+                  maxWidth: CAROUSEL_VIEWPORT_FULL.w,
+                  maxHeight: CAROUSEL_VIEWPORT_FULL.h,
                 }}
               >
                 <div
@@ -248,13 +261,45 @@ export function GuidePageContent({
                       <CarouselItem key={index} className="h-full min-h-0">
                         <div
                           className={cn(
-                            "h-full w-full",
+                            "flex h-full min-h-0 w-full",
                             step.slideOverflowVisible
                               ? "overflow-visible"
                               : "overflow-hidden",
+                            !step.fullCarouselViewport &&
+                              "items-center justify-center",
                           )}
                         >
-                          {step.content}
+                          {step.fullCarouselViewport ? (
+                            <div
+                              className={cn(
+                                "h-full min-h-0 w-full min-w-0",
+                                step.slideOverflowVisible
+                                  ? "overflow-visible"
+                                  : "overflow-hidden",
+                              )}
+                            >
+                              {step.content}
+                            </div>
+                          ) : (
+                            <div
+                              className={cn(
+                                "shrink-0",
+                                step.slideOverflowVisible
+                                  ? "overflow-visible"
+                                  : "overflow-hidden",
+                              )}
+                              style={{
+                                width: CAROUSEL_VIEWPORT_REDUCED.w,
+                                height: CAROUSEL_VIEWPORT_REDUCED.h,
+                                minWidth: CAROUSEL_VIEWPORT_REDUCED.w,
+                                minHeight: CAROUSEL_VIEWPORT_REDUCED.h,
+                                maxWidth: CAROUSEL_VIEWPORT_REDUCED.w,
+                                maxHeight: CAROUSEL_VIEWPORT_REDUCED.h,
+                              }}
+                            >
+                              {step.content}
+                            </div>
+                          )}
                         </div>
                       </CarouselItem>
                     ))}
